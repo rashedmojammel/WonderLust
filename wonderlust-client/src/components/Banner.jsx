@@ -1,63 +1,116 @@
 import { Separator } from "@heroui/react";
+import Link from "next/link";
 
 const Banner = () => {
   return (
-    <div className="bg-[url('/assets/banner.png')] text-white  flex justify-between flex-col items-center  gap-5 h-150">
-      <div className="p-10 text-center flex justify-center flex-col items-center gap-3.5 flex-1">
-        <h1 className="text-7xl">
-          Discover Your <br /> Next Adventure
-        </h1>
+    <section className="relative overflow-hidden">
+      {/* Hero */}
+      <div
+        className="relative bg-[url('/assets/banner.png')] bg-cover bg-center text-white"
+        style={{ minHeight: "85vh" }}
+      >
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
 
-        <p className="text-2xl">
-          Explore breathtaking destinations and create unforgettable memories
-          with our curated travel experiences.
-        </p>
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-center items-center text-center h-full min-h-[75vh] px-6 pt-20 pb-32">
+          {/* Eyebrow */}
+          <p className="text-cyan-300 text-xs tracking-[0.3em] font-semibold uppercase mb-6">
+            Curated travel experiences
+          </p>
 
-        <div className="flex gap-5">
-          <button className="uppercase bg-cyan-500 px-5 py-3 cursor-pointer">
-            Explore Now
-          </button>
+          <h1
+            className="font-bold leading-[1.05] mb-6"
+            style={{
+              fontSize: "clamp(2.8rem, 8vw, 6rem)",
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Discover Your
+            <br />
+            <span className="text-cyan-300">Next Adventure</span>
+          </h1>
 
-          <button className="uppercase px-5 py-3 bg-white/50 cursor-pointer">
-            View Destination
-          </button>
+          <p className="text-white/80 text-lg max-w-xl mb-10 leading-relaxed">
+            Explore breathtaking destinations and create unforgettable memories
+            with our hand-picked travel experiences.
+          </p>
+
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link
+              href="/destinations"
+              className="bg-cyan-500 hover:bg-cyan-400 text-white font-semibold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:-translate-y-0.5"
+            >
+              Explore Now
+            </Link>
+            <Link
+              href="/destinations"
+              className="border border-white/60 hover:bg-white/10 text-white font-semibold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200"
+            >
+              View Destinations
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className=" bg-white/30 flex justify-between gap-5 w-full items-center">
-        <div className="px-3">
-          <h3 className="text-sm">Location</h3>
-          <p className="text-xs">Address, City or Zip</p>
-        </div>
+      {/* Search bar */}
+      <div className="relative z-20 -mt-10 mx-4 md:mx-auto max-w-5xl">
+        <div className="bg-white shadow-2xl shadow-black/15 flex flex-wrap md:flex-nowrap divide-y md:divide-y-0 md:divide-x divide-gray-100">
+          {[
+            {
+              label: "Location",
+              sub: "Address, City or Zip",
+              icon: "📍",
+            },
+            {
+              label: "Date / Duration",
+              sub: "Anytime · 3 Days",
+              icon: "📅",
+            },
+            {
+              label: "Budget",
+              sub: "$0 – $3,000",
+              icon: "💳",
+            },
+            {
+              label: "People",
+              sub: "5 – 10 Travellers",
+              icon: "👥",
+            },
+          ].map(({ label, sub, icon }) => (
+            <div
+              key={label}
+              className="flex-1 min-w-[140px] px-6 py-5 hover:bg-gray-50 cursor-pointer transition-colors group"
+            >
+              <p className="text-[10px] text-gray-400 tracking-widest uppercase font-semibold mb-1">
+                {label}
+              </p>
+              <p className="text-sm text-gray-700 font-medium group-hover:text-cyan-600 transition-colors">
+                {sub}
+              </p>
+            </div>
+          ))}
 
-         <Separator variant="tertiary" orientation="vertical" />
-
-        <div>
-          <h3 className="text-sm">Date/Duration</h3>
-          <p className="text-xs">Anytime/3 Days</p>
-        </div>
-
-           <Separator variant="tertiary" orientation="vertical" />
-
-        <div>
-          <h3 className="text-sm">Budget</h3>
-          <p className="text-xs">$0-$3000</p>
-        </div>
-
-           <Separator variant="tertiary" orientation="vertical" />
-
-        <div>
-          <h3 className="text-sm">People</h3>
-          <p className="text-xs">5-10</p>
-        </div>
-
-
-
-        <div className="bg-cyan-500 py-2 px-4">
-          <h3>Search</h3>
+          <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-sm tracking-[0.15em] uppercase px-8 py-5 transition-colors duration-200 flex items-center gap-2 whitespace-nowrap">
+            Search
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
