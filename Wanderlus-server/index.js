@@ -3,7 +3,7 @@ const dotenv = require('dotenv')
 const cors = require("cors")
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 dotenv.config();
 const app = express()
 const uri = process.env.MONGO_URI;
@@ -24,12 +24,26 @@ async function run() {
     const db = client.db("wonderlust")
     const destinationCollection = db.collection("destinations");
 
+    app.get('/destination', async(req, res)=>
+    {
+      const result = await destinationCollection.find().toArray();
+      res.json(result);
+    })
+
     app.post('/destination',(req,res) => {
       const destinationData = req.body
       const result = destinationCollection.insertOne(destinationData)
       res.json(result)
     })
 
+    app.get("/destination/:id" , async(req , res)=>
+  {
+    const {id} = req.params
+    const result = await destinationCollection.findOne({
+      _id : new ObjectId(id)
+    })
+    res.json(result)
+  })
    
    
     await client.db("admin").command({ ping: 1 });

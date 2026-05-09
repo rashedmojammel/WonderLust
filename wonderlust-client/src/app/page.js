@@ -3,11 +3,14 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
-export default function Home() {
+export default function Home({children}) {
   return (
     <>
     <Navbar></Navbar>
     <Banner></Banner>
+    {
+      children
+    }
     <Footer></Footer>
     </>
   );
