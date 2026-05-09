@@ -6,12 +6,10 @@ import Image from "next/image";
 export default function Home({children}) {
   return (
     <>
-    <Navbar></Navbar>
+    {/* <Navbar></Navbar> */}
     <Banner></Banner>
-    {
-      children
-    }
-    <Footer></Footer>
+    
+    {/* <Footer></Footer> */}
     </>
   );
 }

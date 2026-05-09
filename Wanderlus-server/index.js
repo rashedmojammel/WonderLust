@@ -30,20 +30,19 @@ async function run() {
       res.json(result);
     })
 
-    app.post('/destination',(req,res) => {
+    app.post('/destination', async (req,res) => {
       const destinationData = req.body
       const result = destinationCollection.insertOne(destinationData)
       res.json(result)
     })
 
-    app.get("/destination/:id" , async(req , res)=>
-  {
-    const {id} = req.params
-    const result = await destinationCollection.findOne({
-      _id : new ObjectId(id)
-    })
-    res.json(result)
-  })
+   app.get("/destination/:id", async (req, res) => {
+  const { id } = req.params;
+  if (!ObjectId.isValid(id)) return res.status(400).json({ error: "Invalid ID" });
+  const result = await destinationCollection.findOne({ _id: new ObjectId(id) });
+  if (!result) return res.status(404).json(null);
+  res.json(result);
+});
    
    
     await client.db("admin").command({ ping: 1 });

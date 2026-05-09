@@ -5,8 +5,35 @@ import { LuMapPin, LuArrowLeft } from "react-icons/lu";
 
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:5000/destination/${id}`, { cache: "no-store" });
-  const destination = await res.json();
+
+  let destination = null;
+  try {
+    const res = await fetch(`http://localhost:5000/destination/${id}`, { cache: "no-store" });
+    if (res.ok) destination = await res.json();
+  } catch (_) {}
+
+  if (!destination) {
+    return (
+      <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center text-center px-6">
+        <p className="text-6xl mb-6">🗺️</p>
+        <h1
+          className="text-2xl font-bold text-gray-900 mb-2"
+          style={{ fontFamily: "Georgia, serif" }}
+        >
+          Destination not found
+        </h1>
+        <p className="text-gray-500 mb-8">
+          This destination may have been removed or the link is incorrect.
+        </p>
+        <Link
+          href="/destinations"
+          className="bg-cyan-500 hover:bg-cyan-600 text-white text-sm font-bold tracking-widest uppercase px-8 py-3 transition-colors"
+        >
+          Browse Destinations
+        </Link>
+      </main>
+    );
+  }
 
   const { imageUrl, price, destinationName, duration, country, description, category, departureDate } =
     destination;

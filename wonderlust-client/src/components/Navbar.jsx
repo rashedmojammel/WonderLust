@@ -42,7 +42,7 @@ const Navbar = () => {
             height={120}
             width={120}
             alt="Wanderlust logo"
-            className="h-10 w-auto object-contain"
+            className="h-10 w-40 object-contain"
           />
         </div>
 
